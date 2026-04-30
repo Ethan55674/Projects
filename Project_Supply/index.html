@@ -11,7 +11,6 @@
 
   #game-wrapper { display: flex; width: 100vw; height: 100vh; }
 
-  /* ── SIDEBAR ── */
   #sidebar {
     width: 220px; min-width: 220px; background: #161b22; border-right: 1px solid #30363d;
     display: flex; flex-direction: column; padding: 10px; gap: 8px; overflow-y: auto;
@@ -32,7 +31,6 @@
   .build-btn .bcost { font-size: 10px; color: #f0c000; }
   .build-btn .bdesc { font-size: 10px; color: #8b949e; line-height: 1.3; margin-top: 1px; }
 
-  /* ── STATS BAR ── */
   #stats-bar {
     display: flex; align-items: center; gap: 14px; padding: 5px 12px;
     background: #161b22; border-bottom: 1px solid #30363d; font-size: 12px; flex-wrap: wrap;
@@ -54,11 +52,9 @@
   #wave-btn:hover { background: #2ea043; }
   #wave-btn:disabled { background: #3d1f1f; color: #8b949e; cursor: default; }
 
-  /* ── CANVAS AREA ── */
-  #canvas-area { flex: 1; display: flex; flex-direction: column; position: relative; }
+  #canvas-area { flex: 1; display: flex; flex-direction: column; position: relative; overflow: hidden; }
   #gameCanvas { display: block; cursor: crosshair; }
 
-  /* ── TOOLTIP ── */
   #tooltip {
     position: fixed; background: #1c2128; border: 1px solid #30363d; border-radius: 8px;
     padding: 8px 12px; font-size: 11px; pointer-events: none; display: none; z-index: 999;
@@ -66,7 +62,6 @@
   }
   #tooltip b { color: #58a6ff; font-size: 12px; }
 
-  /* ── OVERLAY ── */
   #overlay {
     position: absolute; inset: 0; background: #0d111799;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -82,7 +77,6 @@
   .overlay-win h2 { color: #3fb950; }
   .overlay-lose h2 { color: #f85149; }
 
-  /* ── BOTTOM LOG ── */
   #log {
     position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%);
     background: #0d111799; border: 1px solid #30363d; border-radius: 6px;
@@ -102,86 +96,49 @@
 <body>
 
 <div id="game-wrapper">
-  <!-- SIDEBAR -->
   <div id="sidebar">
     <h1>⚙ SUPPLY LINES</h1>
 
     <div class="section-title">🏗 Infrastructure</div>
-    <div class="build-btn" data-type="road" title="">
+    <div class="build-btn" data-type="road">
       <span class="icon">🛤</span>
-      <div class="info">
-        <span class="bname">Road</span>
-        <span class="bcost">💰 10</span>
-        <span class="bdesc">Trucks deliver resources along roads</span>
-      </div>
+      <div class="info"><span class="bname">Road</span><span class="bcost">💰 10</span><span class="bdesc">Trucks deliver ammo along roads</span></div>
     </div>
-    <div class="build-btn" data-type="conveyor" title="">
+    <div class="build-btn" data-type="conveyor">
       <span class="icon">📦</span>
-      <div class="info">
-        <span class="bname">Conveyor</span>
-        <span class="bcost">💰 20</span>
-        <span class="bdesc">Fast, fixed ammo delivery</span>
-      </div>
+      <div class="info"><span class="bname">Conveyor</span><span class="bcost">💰 20</span><span class="bdesc">Fast fixed ammo delivery</span></div>
     </div>
-    <div class="build-btn" data-type="pipe" title="">
+    <div class="build-btn" data-type="pipe">
       <span class="icon">🔌</span>
-      <div class="info">
-        <span class="bname">Power Line</span>
-        <span class="bcost">💰 15</span>
-        <span class="bdesc">Transmits power to towers</span>
-      </div>
+      <div class="info"><span class="bname">Power Line</span><span class="bcost">💰 15</span><span class="bdesc">Transmits power to towers</span></div>
     </div>
 
     <div class="section-title">🏭 Generators</div>
-    <div class="build-btn" data-type="ammo_factory" title="">
+    <div class="build-btn" data-type="ammo_factory">
       <span class="icon">🔧</span>
-      <div class="info">
-        <span class="bname">Ammo Factory</span>
-        <span class="bcost">💰 80</span>
-        <span class="bdesc">Produces ammo for gun towers</span>
-      </div>
+      <div class="info"><span class="bname">Ammo Factory</span><span class="bcost">💰 80</span><span class="bdesc">Produces ammo for gun towers</span></div>
     </div>
-    <div class="build-btn" data-type="power_plant" title="">
+    <div class="build-btn" data-type="power_plant">
       <span class="icon">⚡</span>
-      <div class="info">
-        <span class="bname">Power Plant</span>
-        <span class="bcost">💰 80</span>
-        <span class="bdesc">Generates power for laser & repair</span>
-      </div>
+      <div class="info"><span class="bname">Power Plant</span><span class="bcost">💰 80</span><span class="bdesc">Generates power for laser & repair</span></div>
     </div>
 
     <div class="section-title">🔫 Towers</div>
-    <div class="build-btn" data-type="gun_tower" title="">
+    <div class="build-btn" data-type="gun_tower">
       <span class="icon">🗼</span>
-      <div class="info">
-        <span class="bname">Machine Gun</span>
-        <span class="bcost">💰 60</span>
-        <span class="bdesc">Fast, needs 🔴 ammo nearby</span>
-      </div>
+      <div class="info"><span class="bname">Machine Gun</span><span class="bcost">💰 60</span><span class="bdesc">Fast, needs 🔴 ammo nearby</span></div>
     </div>
-    <div class="build-btn" data-type="missile_tower" title="">
+    <div class="build-btn" data-type="missile_tower">
       <span class="icon">🚀</span>
-      <div class="info">
-        <span class="bname">Missile Tower</span>
-        <span class="bcost">💰 100</span>
-        <span class="bdesc">Splash dmg, needs 🔴 ammo</span>
-      </div>
+      <div class="info"><span class="bname">Missile Tower</span><span class="bcost">💰 100</span><span class="bdesc">Splash dmg, needs 🔴 ammo</span></div>
     </div>
-    <div class="build-btn" data-type="laser_tower" title="">
+    <div class="build-btn" data-type="laser_tower">
       <span class="icon">🔆</span>
-      <div class="info">
-        <span class="bname">Laser Tower</span>
-        <span class="bcost">💰 120</span>
-        <span class="bdesc">Continuous, needs ⚡ power</span>
-      </div>
+      <div class="info"><span class="bname">Laser Tower</span><span class="bcost">💰 120</span><span class="bdesc">Continuous, needs ⚡ power</span></div>
     </div>
-    <div class="build-btn" data-type="repair_station" title="">
+    <div class="build-btn" data-type="repair_station">
       <span class="icon">🔩</span>
-      <div class="info">
-        <span class="bname">Repair Station</span>
-        <span class="bcost">💰 90</span>
-        <span class="bdesc">Heals towers, needs ⚡ power</span>
-      </div>
+      <div class="info"><span class="bname">Repair Station</span><span class="bcost">💰 90</span><span class="bdesc">Heals towers, needs ⚡ power</span></div>
     </div>
 
     <div class="section-title">🗑 Tools</div>
@@ -192,15 +149,13 @@
       1. Place <b>generators</b> near base<br>
       2. Build <b>roads/conveyors</b> to towers<br>
       3. Towers need nearby supply!<br>
-      4. Protect your logistics!<br>
-      <br>
-      🔴 Raiders attack supply lines<br>
-      🟣 Saboteurs disable roads<br>
-      🟡 Leeches drain resources
+      4. Protect your logistics!<br><br>
+      🏃 Raiders attack supply lines<br>
+      🕵 Saboteurs disable roads<br>
+      🦑 Leeches drain resources
     </div>
   </div>
 
-  <!-- MAIN AREA -->
   <div id="canvas-area">
     <div id="stats-bar">
       <div class="stat gold">💰 <span class="lbl">Gold:</span> <span class="val" id="s-gold">250</span></div>
@@ -223,108 +178,55 @@
 <div id="tooltip"></div>
 
 <script>
-// ═══════════════════════════════════════════════════════════
-//  CONSTANTS & CONFIG
-// ═══════════════════════════════════════════════════════════
 const CELL = 40;
 const COLS = 22, ROWS = 16;
-let canvas, ctx;
-let W, H;
+let canvas, ctx, W, H;
 
 const COLORS = {
-  grass:       '#1a2310',
-  road:        '#4a3d2a',
-  conveyor:    '#1a3a2a',
-  pipe:        '#1a1a3a',
-  ammo_factory:'#3a1a1a',
-  power_plant: '#1a1a3a',
-  gun_tower:   '#2a3a1a',
-  missile_tower:'#3a2a1a',
-  laser_tower: '#1a2a3a',
-  repair_station:'#2a3a3a',
-  base:        '#0d2a1a',
+  grass:'#1a2310', road:'#4a3d2a', conveyor:'#1a3a2a', pipe:'#1a1a3a',
+  ammo_factory:'#3a1a1a', power_plant:'#1a1a3a', gun_tower:'#2a3a1a',
+  missile_tower:'#3a2a1a', laser_tower:'#1a2a3a', repair_station:'#2a3a3a', base:'#0d2a1a',
 };
-
-const COSTS = {
-  road:10, conveyor:20, pipe:15,
-  ammo_factory:80, power_plant:80,
-  gun_tower:60, missile_tower:100, laser_tower:120, repair_station:90
-};
-
+const COSTS = { road:10, conveyor:20, pipe:15, ammo_factory:80, power_plant:80, gun_tower:60, missile_tower:100, laser_tower:120, repair_station:90 };
 const TOWER_TYPES = ['gun_tower','missile_tower','laser_tower','repair_station'];
-const INFRA_TYPES = ['road','conveyor','pipe'];
-const GEN_TYPES   = ['ammo_factory','power_plant'];
+const INFRA_TYPES  = ['road','conveyor','pipe'];
+const GEN_TYPES    = ['ammo_factory','power_plant'];
 
-// ═══════════════════════════════════════════════════════════
-//  GAME STATE
-// ═══════════════════════════════════════════════════════════
-let grid = [];        // grid[r][c] = {type, hp, maxHp, powered, ammoStock, ...}
-let enemies  = [];
-let bullets  = [];
-let particles= [];
-let trucks   = [];
-let drones   = [];
-
+let grid=[], enemies=[], bullets=[], particles=[], trucks=[];
 let gold=250, lives=20, wave=0, maxWaves=10;
 let ammoGlobal=0, powerGlobal=0;
 let waveActive=false, gameOver=false, gameWon=false;
-let selectedTool=null;
-let logTimer=null;
-let animFrame=null;
-let lastTime=0;
-let resourceTick=0;
-let spawnQueue=[];
-let spawnTimer=0;
+let selectedTool=null, logTimer=null, animFrame=null, lastTime=0;
+let resourceTick=0, spawnQueue=[], spawnTimer=0;
+let towerCooldowns={}, enemyIdCounter=0;
 
-// Enemy path: left side to right base
-let PATH = []; // will be set as a fixed path through the grid
-
-// ═══════════════════════════════════════════════════════════
-//  INIT
-// ═══════════════════════════════════════════════════════════
 function initGrid() {
-  grid = [];
+  grid=[];
   for(let r=0;r<ROWS;r++){
     grid[r]=[];
-    for(let c=0;c<COLS;c++){
-      grid[r][c] = { type:'grass', hp:0, maxHp:0, powered:false, ammoStock:0, powerStock:0, sabotaged:0, disabled:0 };
-    }
+    for(let c=0;c<COLS;c++) grid[r][c]=cellOf('grass',0);
   }
-  // Base at right side
-  for(let r=6;r<=9;r++) { grid[r][COLS-1] = cellOf('base',200); }
-  // Pre-built fixed enemy paths (3 lanes)
-  PATH = buildEnemyPaths();
+  for(let r=6;r<=9;r++) grid[r][COLS-1]=cellOf('base',200);
 }
 
-function cellOf(type, hp=100) {
-  return { type, hp, maxHp: hp, powered:false, ammoStock:0, powerStock:0, sabotaged:0, disabled:0 };
+function cellOf(type,hp=100){
+  return {type,hp,maxHp:hp,powered:false,ammoStock:0,powerStock:0,sabotaged:0};
 }
 
-function buildEnemyPaths() {
-  // Three lanes enemies can use (not fixed cells, just Y rows)
-  return [
-    { row: 3 },
-    { row: 8 },
-    { row: 13 },
-  ];
+function resizeCanvas(){
+  const area=document.getElementById('canvas-area');
+  const sb=document.getElementById('stats-bar');
+  W=area.clientWidth;
+  H=area.clientHeight - sb.offsetHeight;
+  canvas.width=W;
+  canvas.height=H;
 }
 
-// ═══════════════════════════════════════════════════════════
-//  CANVAS RESIZE
-// ═══════════════════════════════════════════════════════════
-function resizeCanvas() {
-  const area = document.getElementById('canvas-area');
-  const sb = document.getElementById('stats-bar');
-  W = area.clientWidth;
-  H = area.clientHeight - sb.offsetHeight;
-  canvas.width  = W;
-  canvas.height = H;
-}
+const offsetX=()=>Math.max(0,Math.floor((W-COLS*CELL)/2));
+const offsetY=()=>Math.max(0,Math.floor((H-ROWS*CELL)/2));
+const cellPx=(r,c)=>({x:offsetX()+c*CELL, y:offsetY()+r*CELL});
 
-// ═══════════════════════════════════════════════════════════
-//  DRAW
-// ═══════════════════════════════════════════════════════════
-function draw() {
+function draw(){
   ctx.clearRect(0,0,W,H);
   drawGrid();
   drawTrucks();
@@ -334,301 +236,239 @@ function draw() {
   drawHoverCell();
 }
 
-const offsetX = () => Math.floor((W - COLS*CELL)/2);
-const offsetY = () => Math.floor((H - ROWS*CELL)/2);
+let hoverCell=null;
 
-function cellPx(r,c) {
-  const ox=offsetX(), oy=offsetY();
-  return { x: ox + c*CELL, y: oy + r*CELL };
-}
-
-function drawGrid() {
+function drawGrid(){
   const ox=offsetX(), oy=offsetY();
   for(let r=0;r<ROWS;r++){
     for(let c=0;c<COLS;c++){
-      const cell = grid[r][c];
-      const px = ox + c*CELL, py = oy + r*CELL;
-      // background
-      ctx.fillStyle = getCellColor(cell);
+      const cell=grid[r][c];
+      const px=ox+c*CELL, py=oy+r*CELL;
+      ctx.fillStyle=getCellColor(cell);
       ctx.fillRect(px,py,CELL,CELL);
-      // grid line
-      ctx.strokeStyle = '#ffffff0a';
+      ctx.strokeStyle='#ffffff0a';
       ctx.strokeRect(px,py,CELL,CELL);
-      // cell icon
-      drawCellIcon(cell, px, py, r, c);
-      // HP bar for structures
-      if(cell.hp > 0 && cell.hp < cell.maxHp && cell.type!=='grass') {
-        const bw = CELL-8, bh = 3;
-        ctx.fillStyle='#f851494d';
-        ctx.fillRect(px+4, py+CELL-6, bw, bh);
-        ctx.fillStyle='#3fb950';
-        ctx.fillRect(px+4, py+CELL-6, bw*(cell.hp/cell.maxHp), bh);
+      drawCellIcon(cell,px,py);
+      if(cell.hp>0&&cell.hp<cell.maxHp&&cell.type!=='grass'){
+        ctx.fillStyle='#f851494d'; ctx.fillRect(px+4,py+CELL-6,CELL-8,3);
+        ctx.fillStyle='#3fb950';   ctx.fillRect(px+4,py+CELL-6,(CELL-8)*(cell.hp/cell.maxHp),3);
       }
-      // sabotage indicator
-      if(cell.sabotaged > 0) {
-        ctx.fillStyle='#ff000044';
-        ctx.fillRect(px,py,CELL,CELL);
-        ctx.fillStyle='#f85149'; ctx.font='12px serif';
-        ctx.fillText('⚡',px+14,py+26);
+      if(cell.sabotaged>0){
+        ctx.fillStyle='#ff000033'; ctx.fillRect(px,py,CELL,CELL);
+        ctx.font='11px serif'; ctx.textAlign='center'; ctx.textBaseline='middle';
+        ctx.fillStyle='#f85149'; ctx.fillText('⚡',px+CELL-8,py+8);
       }
     }
   }
-  // Border
-  ctx.strokeStyle = '#30363d';
-  ctx.lineWidth = 2;
-  ctx.strokeRect(ox, oy, COLS*CELL, ROWS*CELL);
-  ctx.lineWidth = 1;
+  ctx.strokeStyle='#30363d'; ctx.lineWidth=2;
+  ctx.strokeRect(ox,oy,COLS*CELL,ROWS*CELL);
+  ctx.lineWidth=1;
 }
 
-function getCellColor(cell) {
-  if(cell.type==='grass') return COLORS.grass;
-  if(cell.type==='base') return COLORS.base;
-  return COLORS[cell.type] || '#222';
+function getCellColor(cell){
+  return COLORS[cell.type]||'#1a2310';
 }
 
-function drawCellIcon(cell, px, py, r, c) {
-  ctx.font = `${CELL*0.48}px serif`;
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  const cx = px+CELL/2, cy = py+CELL/2;
-  const icons = {
-    road:'🛤', conveyor:'📦', pipe:'🔌',
-    ammo_factory:'🔧', power_plant:'⚡',
-    gun_tower:'🗼', missile_tower:'🚀', laser_tower:'🔆', repair_station:'🔩',
-    base:'🏰',
-  };
-  if(cell.type !== 'grass' && icons[cell.type]) {
-    // dim if not powered/supplied
-    ctx.globalAlpha = cell.type.endsWith('_tower') && !cell.powered ? 0.4 : 1.0;
-    ctx.fillText(icons[cell.type], cx, cy);
-    ctx.globalAlpha = 1;
+function drawCellIcon(cell,px,py){
+  const icons={road:'🛤',conveyor:'📦',pipe:'🔌',ammo_factory:'🔧',power_plant:'⚡',
+    gun_tower:'🗼',missile_tower:'🚀',laser_tower:'🔆',repair_station:'🔩',base:'🏰'};
+  if(cell.type==='grass'||!icons[cell.type]) return;
+  ctx.font=`${CELL*0.48}px serif`;
+  ctx.textAlign='center'; ctx.textBaseline='middle';
+  const cx=px+CELL/2, cy=py+CELL/2;
+  if(TOWER_TYPES.includes(cell.type)&&!cell.powered){
+    ctx.globalAlpha=0.35;
+    ctx.fillText(icons[cell.type],cx,cy);
+    ctx.globalAlpha=1;
+  } else if(cell.powered&&TOWER_TYPES.includes(cell.type)){
+    ctx.shadowColor=cell.type==='laser_tower'?'#d2a8ff':'#3fb950';
+    ctx.shadowBlur=10;
+    ctx.fillText(icons[cell.type],cx,cy);
+    ctx.shadowBlur=0;
+  } else {
+    ctx.fillText(icons[cell.type],cx,cy);
   }
-  // supply glow on powered towers
-  if(cell.powered && cell.type.endsWith('_tower')) {
-    ctx.shadowColor = cell.type==='laser_tower'?'#d2a8ff':'#3fb950';
-    ctx.shadowBlur = 8;
-    ctx.fillText(icons[cell.type], cx, cy);
-    ctx.shadowBlur = 0;
-  }
-  // resource stock indicators
-  if(GEN_TYPES.includes(cell.type) || TOWER_TYPES.includes(cell.type)) {
-    const stockVal = cell.type.startsWith('power')||cell.type==='laser_tower'||cell.type==='repair_station' ? cell.powerStock : cell.ammoStock;
-    if(stockVal > 0) {
-      ctx.font = '9px sans-serif';
-      ctx.fillStyle = cell.type.includes('power')||cell.type==='laser_tower'||cell.type==='repair_station' ? '#d2a8ff' : '#3fb950';
-      ctx.fillText(Math.round(stockVal), px+CELL-6, py+8);
-      ctx.textAlign='center'; ctx.textBaseline='middle';
-    }
+  const stockVal=(cell.type==='laser_tower'||cell.type==='repair_station'||cell.type==='power_plant')?cell.powerStock:cell.ammoStock;
+  if(stockVal>0&&(GEN_TYPES.includes(cell.type)||TOWER_TYPES.includes(cell.type))){
+    ctx.font='9px sans-serif';
+    ctx.fillStyle=(cell.type==='laser_tower'||cell.type==='repair_station'||cell.type==='power_plant')?'#d2a8ff':'#3fb950';
+    ctx.textAlign='right'; ctx.textBaseline='top';
+    ctx.fillText(Math.round(stockVal),px+CELL-2,py+2);
+    ctx.textAlign='center'; ctx.textBaseline='middle';
   }
 }
 
-let hoverCell = null;
-function drawHoverCell() {
-  if(!hoverCell || !selectedTool) return;
-  const {r,c} = hoverCell;
-  const {x,y} = cellPx(r,c);
-  const canPlace = canBuild(r,c,selectedTool);
-  ctx.fillStyle = canPlace ? '#58a6ff22' : '#f8514922';
+function drawHoverCell(){
+  if(!hoverCell||!selectedTool) return;
+  const {r,c}=hoverCell;
+  const {x,y}=cellPx(r,c);
+  const ok=canBuild(r,c,selectedTool);
+  ctx.fillStyle=ok?'#58a6ff22':'#f8514922';
   ctx.fillRect(x,y,CELL,CELL);
-  ctx.strokeStyle = canPlace ? '#58a6ff88' : '#f8514988';
+  ctx.strokeStyle=ok?'#58a6ff88':'#f8514988';
   ctx.strokeRect(x,y,CELL,CELL);
 }
 
-function drawTrucks() {
-  trucks.forEach(t => {
-    const ox=offsetX(), oy=offsetY();
-    const px = ox + t.x, py = oy + t.y;
+function drawTrucks(){
+  const ox=offsetX(),oy=offsetY();
+  trucks.forEach(t=>{
     ctx.font='14px serif'; ctx.textAlign='center'; ctx.textBaseline='middle';
-    ctx.fillText(t.cargo==='ammo'?'🚛':'🚐', px, py);
+    ctx.fillText(t.cargo==='ammo'?'🚛':'🚐',ox+t.x,oy+t.y);
   });
 }
 
-function drawEnemies() {
-  enemies.forEach(e => {
-    const ox=offsetX(), oy=offsetY();
-    const px = ox + e.x, py = oy + e.y;
-    // shadow
+function drawEnemies(){
+  const ox=offsetX(),oy=offsetY();
+  enemies.forEach(e=>{
+    const px=ox+e.x,py=oy+e.y;
     ctx.fillStyle='#00000044';
     ctx.beginPath(); ctx.ellipse(px,py+12,10,4,0,0,Math.PI*2); ctx.fill();
     ctx.font='22px serif'; ctx.textAlign='center'; ctx.textBaseline='middle';
-    ctx.fillText(e.icon, px, py);
-    // HP bar
-    const bw=24, bh=3;
-    ctx.fillStyle='#f8514966'; ctx.fillRect(px-12, py-18, bw, bh);
+    ctx.fillText(e.icon,px,py);
+    ctx.fillStyle='#f8514966'; ctx.fillRect(px-12,py-18,24,3);
     ctx.fillStyle=e.type==='heavy_tank'?'#f0c000':'#f85149';
-    ctx.fillRect(px-12, py-18, bw*(e.hp/e.maxHp), bh);
-    // raider target indicator
-    if(e.type==='raider' && e.targetCell) {
-      ctx.font='10px sans-serif'; ctx.fillStyle='#f85149';
-      ctx.fillText('⚡',px+8,py-8);
-    }
+    ctx.fillRect(px-12,py-18,24*(e.hp/e.maxHp),3);
   });
 }
 
-function drawBullets() {
-  bullets.forEach(b => {
-    const ox=offsetX(), oy=offsetY();
+function drawBullets(){
+  const ox=offsetX(),oy=offsetY();
+  bullets.forEach(b=>{
     ctx.font='12px serif'; ctx.textAlign='center'; ctx.textBaseline='middle';
-    ctx.fillText(b.icon, ox+b.x, oy+b.y);
+    ctx.fillText(b.icon,ox+b.x,oy+b.y);
   });
 }
 
-function drawParticles() {
-  particles = particles.filter(p=>p.life>0);
-  particles.forEach(p => {
-    const ox=offsetX(), oy=offsetY();
-    ctx.globalAlpha = p.life/p.maxLife;
+function drawParticles(){
+  particles=particles.filter(p=>p.life>0);
+  particles.forEach(p=>{
+    const ox=offsetX(),oy=offsetY();
+    ctx.globalAlpha=p.life/p.maxLife;
     ctx.font=`${p.size}px serif`; ctx.textAlign='center'; ctx.textBaseline='middle';
-    ctx.fillText(p.icon, ox+p.x, oy+p.y);
+    ctx.fillText(p.icon,ox+p.x,oy+p.y);
     ctx.globalAlpha=1;
     p.x+=p.vx; p.y+=p.vy; p.vy+=0.3; p.life--;
   });
 }
 
-// ═══════════════════════════════════════════════════════════
-//  GAME LOOP
-// ═══════════════════════════════════════════════════════════
-function gameLoop(ts) {
+function gameLoop(ts){
   if(gameOver||gameWon) return;
-  const dt = Math.min((ts - lastTime)/1000, 0.1);
-  lastTime = ts;
-
-  resourceTick += dt;
-  if(resourceTick >= 1.5) {
-    resourceTick = 0;
-    tickResources();
-  }
-
-  if(waveActive) {
-    spawnTimer += dt;
-    if(spawnTimer >= 1.2 && spawnQueue.length > 0) {
-      spawnTimer = 0;
-      const e = spawnQueue.shift();
-      enemies.push(e);
-      if(spawnQueue.length===0 && enemies.length===0) endWave();
+  const dt=Math.min((ts-lastTime)/1000,0.1);
+  lastTime=ts;
+  resourceTick+=dt;
+  if(resourceTick>=1.5){ resourceTick=0; tickResources(); }
+  if(waveActive){
+    spawnTimer+=dt;
+    if(spawnTimer>=1.2&&spawnQueue.length>0){
+      spawnTimer=0;
+      enemies.push(spawnQueue.shift());
+      if(spawnQueue.length===0&&enemies.length===0) endWave();
     }
   }
-
   updateEnemies(dt);
   updateBullets(dt);
   updateTrucks(dt);
   towerShoot(dt);
-
   draw();
   updateUI();
-  animFrame = requestAnimationFrame(gameLoop);
+  animFrame=requestAnimationFrame(gameLoop);
 }
 
-// ═══════════════════════════════════════════════════════════
-//  RESOURCE SYSTEM
-// ═══════════════════════════════════════════════════════════
-function tickResources() {
+function tickResources(){
   ammoGlobal=0; powerGlobal=0;
-
-  // Generators produce resources
-  for(let r=0;r<ROWS;r++) for(let c=0;c<COLS;c++) {
+  for(let r=0;r<ROWS;r++) for(let c=0;c<COLS;c++){
     const cell=grid[r][c];
-    if(cell.type==='ammo_factory' && cell.hp>0) { cell.ammoStock = Math.min(cell.ammoStock+8, 50); ammoGlobal+=cell.ammoStock; }
-    if(cell.type==='power_plant'  && cell.hp>0) { cell.powerStock= Math.min(cell.powerStock+8, 50); powerGlobal+=cell.powerStock; }
+    if(cell.type==='ammo_factory'&&cell.hp>0) cell.ammoStock=Math.min(cell.ammoStock+8,50);
+    if(cell.type==='power_plant' &&cell.hp>0) cell.powerStock=Math.min(cell.powerStock+8,50);
   }
-
-  // Propagate via roads/conveyors/pipes
-  for(let r=0;r<ROWS;r++) for(let c=0;c<COLS;c++) {
+  for(let r=0;r<ROWS;r++) for(let c=0;c<COLS;c++){
     const cell=grid[r][c];
-    if(cell.sabotaged>0) { cell.sabotaged--; continue; }
-    if(cell.type==='road'||cell.type==='conveyor') {
-      // check neighbors for ammo sources
-      const n = neighbors(r,c);
-      n.forEach(([nr,nc])=>{
+    if(cell.sabotaged>0){cell.sabotaged--; continue;}
+    if(cell.type==='road'||cell.type==='conveyor'){
+      neighbors(r,c).forEach(([nr,nc])=>{
         const nb=grid[nr][nc];
-        if((nb.type==='ammo_factory'||nb.type==='road'||nb.type==='conveyor')&&nb.ammoStock>0&&nb.hp>0) {
-          const flow = cell.type==='conveyor'?4:2;
-          const moved = Math.min(flow, nb.ammoStock);
-          nb.ammoStock -= moved; cell.ammoStock = Math.min(cell.ammoStock+moved,50);
+        if((nb.type==='ammo_factory'||nb.type==='road'||nb.type==='conveyor')&&nb.ammoStock>0&&nb.hp>0){
+          const flow=cell.type==='conveyor'?4:2;
+          const moved=Math.min(flow,nb.ammoStock);
+          nb.ammoStock-=moved; cell.ammoStock=Math.min(cell.ammoStock+moved,50);
         }
       });
     }
-    if(cell.type==='pipe') {
-      const n = neighbors(r,c);
-      n.forEach(([nr,nc])=>{
+    if(cell.type==='pipe'){
+      neighbors(r,c).forEach(([nr,nc])=>{
         const nb=grid[nr][nc];
-        if((nb.type==='power_plant'||nb.type==='pipe')&&nb.powerStock>0&&nb.hp>0) {
-          const moved = Math.min(3, nb.powerStock);
-          nb.powerStock -= moved; cell.powerStock = Math.min(cell.powerStock+moved,50);
+        if((nb.type==='power_plant'||nb.type==='pipe')&&nb.powerStock>0&&nb.hp>0){
+          const moved=Math.min(3,nb.powerStock);
+          nb.powerStock-=moved; cell.powerStock=Math.min(cell.powerStock+moved,50);
         }
       });
     }
   }
-
-  // Power towers from adjacent supply
-  for(let r=0;r<ROWS;r++) for(let c=0;c<COLS;c++) {
+  for(let r=0;r<ROWS;r++) for(let c=0;c<COLS;c++){
     const cell=grid[r][c];
     if(!TOWER_TYPES.includes(cell.type)||cell.hp<=0) continue;
-    const needsAmmo  = cell.type==='gun_tower'||cell.type==='missile_tower';
-    const needsPower = cell.type==='laser_tower'||cell.type==='repair_station';
-    let supplied=false;
+    const needsAmmo =cell.type==='gun_tower'||cell.type==='missile_tower';
+    const needsPower=cell.type==='laser_tower'||cell.type==='repair_station';
     neighbors(r,c).forEach(([nr,nc])=>{
       const nb=grid[nr][nc];
       if(nb.hp<=0) return;
-      if(needsAmmo && (nb.type==='road'||nb.type==='conveyor'||nb.type==='ammo_factory') && nb.ammoStock>=2) {
-        nb.ammoStock-=2; cell.ammoStock+=2; supplied=true;
+      if(needsAmmo&&(nb.type==='road'||nb.type==='conveyor'||nb.type==='ammo_factory')&&nb.ammoStock>=2){
+        nb.ammoStock-=2; cell.ammoStock+=2;
       }
-      if(needsPower && (nb.type==='pipe'||nb.type==='power_plant') && nb.powerStock>=2) {
-        nb.powerStock-=2; cell.powerStock+=2; supplied=true;
+      if(needsPower&&(nb.type==='pipe'||nb.type==='power_plant')&&nb.powerStock>=2){
+        nb.powerStock-=2; cell.powerStock+=2;
       }
     });
-    const res = needsAmmo ? cell.ammoStock : cell.powerStock;
-    cell.powered = res > 0;
-    if(cell.powered) {
-      if(needsAmmo)  cell.ammoStock  = Math.max(0, cell.ammoStock-1);
-      if(needsPower) cell.powerStock = Math.max(0, cell.powerStock-1);
+    const res=needsAmmo?cell.ammoStock:cell.powerStock;
+    cell.powered=res>0;
+    if(cell.powered){
+      if(needsAmmo)  cell.ammoStock =Math.max(0,cell.ammoStock-1);
+      if(needsPower) cell.powerStock=Math.max(0,cell.powerStock-1);
     }
   }
-
-  // Repair station heals adjacent towers
-  for(let r=0;r<ROWS;r++) for(let c=0;c<COLS;c++) {
+  for(let r=0;r<ROWS;r++) for(let c=0;c<COLS;c++){
     const cell=grid[r][c];
-    if(cell.type==='repair_station'&&cell.powered&&cell.hp>0) {
+    if(cell.type==='repair_station'&&cell.powered&&cell.hp>0){
       neighbors(r,c).forEach(([nr,nc])=>{
         const nb=grid[nr][nc];
-        if(TOWER_TYPES.includes(nb.type)&&nb.hp>0) nb.hp=Math.min(nb.maxHp, nb.hp+3);
+        if(TOWER_TYPES.includes(nb.type)&&nb.hp>0) nb.hp=Math.min(nb.maxHp,nb.hp+3);
       });
     }
   }
-
-  // Recount globals
-  ammoGlobal=0; powerGlobal=0;
-  for(let r=0;r<ROWS;r++) for(let c=0;c<COLS;c++) {
+  for(let r=0;r<ROWS;r++) for(let c=0;c<COLS;c++){
     ammoGlobal+=grid[r][c].ammoStock;
     powerGlobal+=grid[r][c].powerStock;
   }
 }
 
-function neighbors(r,c) {
+function neighbors(r,c){
   const n=[];
-  if(r>0)       n.push([r-1,c]);
-  if(r<ROWS-1)  n.push([r+1,c]);
-  if(c>0)       n.push([r,c-1]);
-  if(c<COLS-1)  n.push([r,c+1]);
+  if(r>0)      n.push([r-1,c]);
+  if(r<ROWS-1) n.push([r+1,c]);
+  if(c>0)      n.push([r,c-1]);
+  if(c<COLS-1) n.push([r,c+1]);
   return n;
 }
 
-// ═══════════════════════════════════════════════════════════
-//  TOWER SHOOTING
-// ═══════════════════════════════════════════════════════════
-let towerCooldowns = {};
-function towerShoot(dt) {
-  for(let r=0;r<ROWS;r++) for(let c=0;c<COLS;c++) {
+const TOWER_CFG={
+  gun_tower:      {range:3,cooldown:0.4,dmg:15,bulletSpd:6,bulletIcon:'•',  splash:0},
+  missile_tower:  {range:5,cooldown:2.0,dmg:60,bulletSpd:4,bulletIcon:'💥', splash:1.5},
+  laser_tower:    {range:4,cooldown:0.2,dmg:8, bulletSpd:12,bulletIcon:'╌', splash:0},
+  repair_station: {range:0,cooldown:999,dmg:0, bulletSpd:0, bulletIcon:'',  splash:0},
+};
+
+function towerShoot(dt){
+  for(let r=0;r<ROWS;r++) for(let c=0;c<COLS;c++){
     const cell=grid[r][c];
     if(!TOWER_TYPES.includes(cell.type)||!cell.powered||cell.hp<=0) continue;
     const key=`${r},${c}`;
-    towerCooldowns[key] = (towerCooldowns[key]||0) - dt;
+    towerCooldowns[key]=(towerCooldowns[key]||0)-dt;
     if(towerCooldowns[key]>0) continue;
-    const cfg = TOWER_CFG[cell.type];
-    // find nearest enemy in range
-    const {x:tx,y:ty} = cellPx(r,c);
-    const tcx = tx+CELL/2, tcy = ty+CELL/2;
-    let bestE=null, bestD=Infinity;
+    const cfg=TOWER_CFG[cell.type];
+    if(cfg.range===0) continue;
+    const {x:tx,y:ty}=cellPx(r,c);
+    const tcx=tx+CELL/2, tcy=ty+CELL/2;
+    let bestE=null,bestD=Infinity;
     enemies.forEach(e=>{
       const ox=offsetX(),oy=offsetY();
       const d=Math.hypot(ox+e.x-tcx,oy+e.y-tcy);
@@ -637,328 +477,223 @@ function towerShoot(dt) {
     if(!bestE) continue;
     towerCooldowns[key]=cfg.cooldown;
     const ox=offsetX(),oy=offsetY();
-    bullets.push({
-      x:tcx-ox, y:tcy-oy,
-      tx:bestE.x, ty:bestE.y,
-      targetId:bestE.id,
-      spd: cfg.bulletSpd,
-      dmg: cfg.dmg,
-      splash: cfg.splash||0,
-      icon: cfg.bulletIcon,
-      type: cell.type,
-    });
-    // spark particle
+    bullets.push({x:tcx-ox,y:tcy-oy,tx:bestE.x,ty:bestE.y,targetId:bestE.id,
+      spd:cfg.bulletSpd,dmg:cfg.dmg,splash:cfg.splash||0,icon:cfg.bulletIcon,type:cell.type});
     spawnParticle(tcx-ox,tcy-oy,'✨',8,3);
   }
 }
 
-const TOWER_CFG = {
-  gun_tower:       { range:3, cooldown:0.4, dmg:15, bulletSpd:6, bulletIcon:'•',   splash:0 },
-  missile_tower:   { range:5, cooldown:2.0, dmg:60, bulletSpd:4, bulletIcon:'💥',  splash:1.5 },
-  laser_tower:     { range:4, cooldown:0.2, dmg:8,  bulletSpd:12,bulletIcon:'╌',   splash:0 },
-  repair_station:  { range:0, cooldown:999, dmg:0,  bulletSpd:0, bulletIcon:'',    splash:0 },
-};
-
-// ═══════════════════════════════════════════════════════════
-//  BULLETS
-// ═══════════════════════════════════════════════════════════
-function updateBullets(dt) {
-  bullets = bullets.filter(b => {
-    const e = enemies.find(e=>e.id===b.targetId);
-    if(!e) { return false; }
-    const dx=e.x-b.x, dy=e.y-b.y;
-    const d=Math.hypot(dx,dy);
-    if(d<6) {
-      // hit
-      if(b.splash>0) {
-        enemies.forEach(oe=>{
-          if(Math.hypot(oe.x-e.x,oe.y-e.y)<b.splash*CELL) {
-            damageEnemy(oe,b.dmg*0.6);
-          }
-        });
+function updateBullets(dt){
+  bullets=bullets.filter(b=>{
+    const e=enemies.find(x=>x.id===b.targetId);
+    if(!e) return false;
+    const dx=e.x-b.x,dy=e.y-b.y,d=Math.hypot(dx,dy);
+    if(d<6){
+      if(b.splash>0){
+        enemies.forEach(oe=>{ if(Math.hypot(oe.x-e.x,oe.y-e.y)<b.splash*CELL) damageEnemy(oe,b.dmg*0.6); });
         spawnParticle(e.x,e.y,'💥',20,8);
       }
-      damageEnemy(e,b.dmg);
-      return false;
+      damageEnemy(e,b.dmg); return false;
     }
-    const spd=b.spd;
-    b.x+=dx/d*spd; b.y+=dy/d*spd;
-    return true;
+    b.x+=dx/d*b.spd; b.y+=dy/d*b.spd; return true;
   });
 }
 
-function damageEnemy(e, dmg) {
-  e.hp -= dmg;
-  if(e.hp<=0) {
-    gold += e.reward;
+function damageEnemy(e,dmg){
+  e.hp-=dmg;
+  if(e.hp<=0){
+    gold+=e.reward;
     spawnParticle(e.x,e.y,'💰',14,6);
-    enemies = enemies.filter(x=>x!==e);
-    if(waveActive && spawnQueue.length===0 && enemies.length===0) endWave();
+    enemies=enemies.filter(x=>x!==e);
+    if(waveActive&&spawnQueue.length===0&&enemies.length===0) endWave();
   }
 }
 
-// ═══════════════════════════════════════════════════════════
-//  ENEMIES
-// ═══════════════════════════════════════════════════════════
-let enemyIdCounter=0;
-function makeEnemy(type, lane) {
-  const row = [3,8,13][lane%3];
-  const cfg = ENEMY_CFG[type];
-  return {
-    id: enemyIdCounter++,
-    type, ...cfg,
-    hp: cfg.maxHp,
-    x: -CELL/2,
-    y: row*CELL + CELL/2,
-    row,
-    targetCell: null,
-    stuckTimer: 0,
-  };
-}
-
-const ENEMY_CFG = {
-  raider:      { maxHp:60,  spd:1.8, reward:12, icon:'🏃', dmg:1, targetSupply:true,  sabotage:false },
-  saboteur:    { maxHp:80,  spd:1.2, reward:18, icon:'🕵', dmg:0, targetSupply:true,  sabotage:true  },
-  heavy_tank:  { maxHp:300, spd:0.7, reward:30, icon:'🦖', dmg:3, targetSupply:false, sabotage:false },
-  leech:       { maxHp:90,  spd:1.4, reward:15, icon:'🦑', dmg:1, targetSupply:true,  sabotage:false, leech:true },
+const ENEMY_CFG={
+  raider:     {maxHp:60, spd:1.8,reward:12,icon:'🏃',dmg:1,targetSupply:true, sabotage:false},
+  saboteur:   {maxHp:80, spd:1.2,reward:18,icon:'🕵',dmg:0,targetSupply:true, sabotage:true},
+  heavy_tank: {maxHp:300,spd:0.7,reward:30,icon:'🦖',dmg:3,targetSupply:false,sabotage:false},
+  leech:      {maxHp:90, spd:1.4,reward:15,icon:'🦑',dmg:1,targetSupply:true, sabotage:false,leech:true},
 };
 
-function updateEnemies(dt) {
-  const ox=offsetX(), oy=offsetY();
-  enemies.forEach(e => {
-    const cfg = ENEMY_CFG[e.type];
-    // Raiders & leeches: find nearest supply structure to attack
-    if(cfg.targetSupply && !e.targetCell) {
-      e.targetCell = findNearestSupply(e);
-    }
-    if(e.targetCell && cfg.targetSupply) {
-      const {r,c} = e.targetCell;
-      const {x:tx,y:ty} = cellPx(r,c);
-      const tcx=tx+CELL/2, tcy=ty+CELL/2;
-      const ex=ox+e.x, ey=oy+e.y;
-      const dx=tcx-ex, dy=tcy-ey;
-      const d=Math.hypot(dx,dy);
-      if(d < 5) {
-        // attack cell
+function makeEnemy(type,lane){
+  const row=[3,8,13][lane%3];
+  const cfg=ENEMY_CFG[type];
+  return {id:enemyIdCounter++,type,...cfg,hp:cfg.maxHp,x:-CELL/2,y:row*CELL+CELL/2,row,targetCell:null};
+}
+
+function updateEnemies(dt){
+  const ox=offsetX(),oy=offsetY();
+  enemies.forEach(e=>{
+    const cfg=ENEMY_CFG[e.type];
+    if(cfg.targetSupply&&!e.targetCell) e.targetCell=findNearestSupply(e);
+    if(e.targetCell&&cfg.targetSupply){
+      const {r,c}=e.targetCell;
+      const {x:tx,y:ty}=cellPx(r,c);
+      const tcx=tx+CELL/2,tcy=ty+CELL/2;
+      const ex=ox+e.x,ey=oy+e.y;
+      const dx=tcx-ex,dy=tcy-ey,d=Math.hypot(dx,dy);
+      if(d<5){
         const cell=grid[r][c];
-        if(cell.hp>0) {
-          cell.hp -= cfg.dmg * dt * 60 * 0.05;
-          if(cfg.sabotage) { cell.sabotaged = Math.min(cell.sabotaged+dt*2,6); }
-          if(e.type==='leech') {
-            cell.ammoStock = Math.max(0, cell.ammoStock-dt*4);
-            cell.powerStock= Math.max(0, cell.powerStock-dt*4);
-          }
-          if(cell.hp<=0) {
-            cell.hp=0; cell.type='grass'; cell.ammoStock=0; cell.powerStock=0;
-            spawnParticle(tcx-ox,tcy-oy,'💥',18,8);
-          }
+        if(cell.hp>0){
+          cell.hp-=cfg.dmg*dt*60*0.05;
+          if(cfg.sabotage) cell.sabotaged=Math.min(cell.sabotaged+dt*2,6);
+          if(e.type==='leech'){ cell.ammoStock=Math.max(0,cell.ammoStock-dt*4); cell.powerStock=Math.max(0,cell.powerStock-dt*4); }
+          if(cell.hp<=0){ cell.hp=0; cell.type='grass'; cell.ammoStock=0; cell.powerStock=0; spawnParticle(tcx-ox,tcy-oy,'💥',18,8); }
         }
-        if(cell.type==='grass') e.targetCell=null; // find new target
+        if(cell.type==='grass') e.targetCell=null;
       } else {
-        e.x += (dx/d)*e.spd*1.5*(dt*60/60);
-        e.y += (dy/d)*e.spd*1.5*(dt*60/60);
+        e.x+=dx/d*e.spd*1.5*(dt*60/60);
+        e.y+=dy/d*e.spd*1.5*(dt*60/60);
       }
       return;
     }
-    // Normal move right
-    e.x += e.spd * (dt * 60 / 60) * 1.5;
-    // Reached base
-    const baseX = ox + (COLS-1)*CELL + CELL/2;
-    if(ox+e.x >= baseX-5) {
-      lives = Math.max(0, lives - cfg.dmg*2);
+    e.x+=e.spd*(dt*60/60)*1.5;
+    const baseX=ox+(COLS-1)*CELL+CELL/2;
+    if(ox+e.x>=baseX-5){
+      lives=Math.max(0,lives-cfg.dmg*2);
       spawnParticle(e.x,e.y,'💔',16,8);
-      enemies = enemies.filter(x=>x!==e);
-      if(lives<=0) { triggerGameOver(); return; }
-      if(waveActive && spawnQueue.length===0 && enemies.length===0) endWave();
+      enemies=enemies.filter(x=>x!==e);
+      if(lives<=0){ triggerGameOver(); return; }
+      if(waveActive&&spawnQueue.length===0&&enemies.length===0) endWave();
     }
   });
 }
 
-function findNearestSupply(e) {
-  const ox=offsetX(), oy=offsetY();
-  const ex=ox+e.x, ey=oy+e.y;
-  let bestCell=null, bestD=Infinity;
-  const supplyTypes = ['road','conveyor','pipe','ammo_factory','power_plant'];
-  for(let r=0;r<ROWS;r++) for(let c=0;c<COLS;c++) {
-    if(!supplyTypes.includes(grid[r][c].type)||grid[r][c].hp<=0) continue;
+function findNearestSupply(e){
+  const ox=offsetX(),oy=offsetY();
+  const ex=ox+e.x,ey=oy+e.y;
+  let best=null,bestD=Infinity;
+  const types=['road','conveyor','pipe','ammo_factory','power_plant'];
+  for(let r=0;r<ROWS;r++) for(let c=0;c<COLS;c++){
+    if(!types.includes(grid[r][c].type)||grid[r][c].hp<=0) continue;
     const {x,y}=cellPx(r,c);
-    const d=Math.hypot(x+CELL/2-ex, y+CELL/2-ey);
-    if(d<bestD){bestD=d;bestCell={r,c};}
+    const d=Math.hypot(x+CELL/2-ex,y+CELL/2-ey);
+    if(d<bestD){bestD=d;best={r,c};}
   }
-  return bestCell;
+  return best;
 }
 
-// ═══════════════════════════════════════════════════════════
-//  TRUCKS (visual delivery units)
-// ═══════════════════════════════════════════════════════════
-function updateTrucks(dt) {
-  trucks = trucks.filter(t=>{
-    t.progress += dt * t.spd;
-    if(t.progress>=1){ return false; }
-    const sx=t.sx+(t.ex-t.sx)*t.progress;
-    const sy=t.sy+(t.ey-t.sy)*t.progress;
-    t.x=sx; t.y=sy;
+function updateTrucks(dt){
+  trucks=trucks.filter(t=>{
+    t.progress+=dt*t.spd;
+    if(t.progress>=1) return false;
+    t.x=t.sx+(t.ex-t.sx)*t.progress;
+    t.y=t.sy+(t.ey-t.sy)*t.progress;
     return true;
   });
-  // Spawn trucks from factories occasionally
-  if(Math.random()<0.04) {
-    for(let r=0;r<ROWS;r++) for(let c=0;c<COLS;c++) {
-      if(grid[r][c].type==='ammo_factory'&&grid[r][c].hp>0&&Math.random()<0.15) {
+  if(Math.random()<0.04){
+    for(let r=0;r<ROWS;r++) for(let c=0;c<COLS;c++){
+      if(grid[r][c].type==='ammo_factory'&&grid[r][c].hp>0&&Math.random()<0.15){
         const nb=neighbors(r,c).filter(([nr,nc])=>grid[nr][nc].type==='road'||grid[nr][nc].type==='conveyor');
         if(nb.length>0){
           const [nr,nc]=nb[Math.floor(Math.random()*nb.length)];
-          trucks.push({ x:c*CELL+CELL/2, y:r*CELL+CELL/2, sx:c*CELL+CELL/2, sy:r*CELL+CELL/2, ex:nc*CELL+CELL/2, ey:nr*CELL+CELL/2, spd:1.5, progress:0, cargo:'ammo' });
+          trucks.push({x:c*CELL+CELL/2,y:r*CELL+CELL/2,sx:c*CELL+CELL/2,sy:r*CELL+CELL/2,ex:nc*CELL+CELL/2,ey:nr*CELL+CELL/2,spd:1.5,progress:0,cargo:'ammo'});
         }
       }
     }
   }
 }
 
-// ═══════════════════════════════════════════════════════════
-//  WAVE SYSTEM
-// ═══════════════════════════════════════════════════════════
-function startWave() {
+function startWave(){
   if(waveActive) return;
-  wave++;
-  waveActive=true;
+  wave++; waveActive=true;
   document.getElementById('wave-btn').disabled=true;
-  spawnQueue = buildWave(wave);
-  spawnTimer = 0;
+  spawnQueue=buildWave(wave); spawnTimer=0;
   showLog(`🌊 Wave ${wave} incoming!`);
 }
 
-function buildWave(w) {
-  const queue=[];
-  const count = 4 + w*2;
-  const types = w<=2 ? ['heavy_tank'] :
-                w<=4 ? ['heavy_tank','raider'] :
-                w<=6 ? ['heavy_tank','raider','saboteur'] :
-                        ['heavy_tank','raider','saboteur','leech'];
+function buildWave(w){
+  const queue=[], count=4+w*2;
+  const types=w<=2?['heavy_tank']:w<=4?['heavy_tank','raider']:w<=6?['heavy_tank','raider','saboteur']:['heavy_tank','raider','saboteur','leech'];
   for(let i=0;i<count;i++){
-    const type = types[Math.floor(Math.random()*types.length)];
-    const lane = i%3;
-    const e=makeEnemy(type,lane);
-    // Scale HP with wave
-    e.hp = Math.round(e.hp * (1 + (w-1)*0.25));
-    e.maxHp = e.hp;
+    const type=types[Math.floor(Math.random()*types.length)];
+    const e=makeEnemy(type,i%3);
+    e.hp=Math.round(e.hp*(1+(w-1)*0.25)); e.maxHp=e.hp;
     queue.push(e);
   }
   return queue;
 }
 
-function endWave() {
+function endWave(){
   waveActive=false;
-  if(wave>=maxWaves) { triggerWin(); return; }
+  if(wave>=maxWaves){ triggerWin(); return; }
   document.getElementById('wave-btn').disabled=false;
-  showLog(`✅ Wave ${wave} cleared! +30 gold bonus`);
-  gold += 30;
+  gold+=30; showLog(`✅ Wave ${wave} cleared! +30 gold bonus`);
 }
 
-// ═══════════════════════════════════════════════════════════
-//  BUILD SYSTEM
-// ═══════════════════════════════════════════════════════════
-function canBuild(r,c,type) {
+function canBuild(r,c,type){
   if(r<0||r>=ROWS||c<0||c>=COLS) return false;
-  const cell=grid[r][c];
-  if(cell.type!=='grass') return false;
-  if(gold < COSTS[type]) return false;
-  if(type==='delete') return cell.type!=='grass'&&cell.type!=='base';
-  return true;
+  if(type==='delete') return grid[r][c].type!=='grass'&&grid[r][c].type!=='base';
+  return grid[r][c].type==='grass'&&gold>=COSTS[type];
 }
 
-function buildAt(r,c,type) {
-  if(type==='delete') {
+function buildAt(r,c,type){
+  if(type==='delete'){
     const cell=grid[r][c];
     if(cell.type==='grass'||cell.type==='base') return;
-    gold += Math.floor(COSTS[cell.type]*0.5);
-    cell.type='grass'; cell.hp=0; cell.ammoStock=0; cell.powerStock=0;
-    showLog(`🗑 Demolished for 50% refund`);
-    return;
+    gold+=Math.floor(COSTS[cell.type]*0.5);
+    grid[r][c]=cellOf('grass',0);
+    showLog('🗑 Demolished (50% refund)'); return;
   }
-  if(!canBuild(r,c,type)) {
-    if(gold<COSTS[type]) showLog(`❌ Not enough gold! Need 💰${COSTS[type]}`);
-    else showLog(`❌ Can't build here!`);
-    return;
-  }
-  gold -= COSTS[type];
-  const hp = GEN_TYPES.includes(type)||type==='base'?150:
-             TOWER_TYPES.includes(type)?100:
-             INFRA_TYPES.includes(type)?60:100;
-  grid[r][c] = cellOf(type, hp);
+  if(!canBuild(r,c,type)){ showLog(gold<COSTS[type]?`❌ Need 💰${COSTS[type]}`:'❌ Cannot build here'); return; }
+  gold-=COSTS[type];
+  const hp=GEN_TYPES.includes(type)?150:TOWER_TYPES.includes(type)?100:60;
+  grid[r][c]=cellOf(type,hp);
   showLog(`✅ Built ${type.replace(/_/g,' ')} (-💰${COSTS[type]})`);
 }
 
-// ═══════════════════════════════════════════════════════════
-//  PARTICLES
-// ═══════════════════════════════════════════════════════════
-function spawnParticle(x,y,icon,size,life) {
-  particles.push({ x,y, icon, size, life, maxLife:life,
-    vx:(Math.random()-0.5)*2, vy:-Math.random()*2-1 });
+function spawnParticle(x,y,icon,size,life){
+  particles.push({x,y,icon,size,life,maxLife:life,vx:(Math.random()-0.5)*2,vy:-Math.random()*2-1});
 }
 
-// ═══════════════════════════════════════════════════════════
-//  UI
-// ═══════════════════════════════════════════════════════════
-function updateUI() {
-  document.getElementById('s-gold').textContent  = Math.round(gold);
-  document.getElementById('s-lives').textContent = lives;
-  document.getElementById('s-wave').textContent  = `${wave} / ${maxWaves}`;
-  document.getElementById('s-ammo').textContent  = Math.round(ammoGlobal);
-  document.getElementById('s-power').textContent = Math.round(powerGlobal);
+function updateUI(){
+  document.getElementById('s-gold').textContent=Math.round(gold);
+  document.getElementById('s-lives').textContent=lives;
+  document.getElementById('s-wave').textContent=`${wave} / ${maxWaves}`;
+  document.getElementById('s-ammo').textContent=Math.round(ammoGlobal);
+  document.getElementById('s-power').textContent=Math.round(powerGlobal);
 }
 
-function showLog(msg) {
+function showLog(msg){
   const el=document.getElementById('log');
   el.textContent=msg; el.style.opacity=1;
   clearTimeout(logTimer);
-  logTimer=setTimeout(()=>{ el.style.opacity=0; },3000);
+  logTimer=setTimeout(()=>el.style.opacity=0,3000);
 }
 
-function triggerGameOver() {
-  gameOver=true;
-  cancelAnimationFrame(animFrame);
+function triggerGameOver(){
+  gameOver=true; cancelAnimationFrame(animFrame);
   const ov=document.getElementById('overlay');
   ov.className='overlay-lose';
-  ov.innerHTML=`<h2>💀 Supply Lines Cut!</h2><p>Your base fell on wave ${wave}. Build better logistics next time!</p><button onclick="restartGame()">🔄 Try Again</button>`;
+  ov.innerHTML=`<h2>💀 Supply Lines Cut!</h2><p>Your base fell on wave ${wave}.</p><button onclick="restartGame()">🔄 Try Again</button>`;
   ov.style.display='flex';
 }
 
-function triggerWin() {
-  gameWon=true;
-  cancelAnimationFrame(animFrame);
+function triggerWin(){
+  gameWon=true; cancelAnimationFrame(animFrame);
   const ov=document.getElementById('overlay');
   ov.className='overlay-win';
-  ov.innerHTML=`<h2>🏆 Supply Lines Held!</h2><p>All ${maxWaves} waves repelled. Your logistics network was unstoppable!</p><button onclick="restartGame()">🔄 Play Again</button>`;
+  ov.innerHTML=`<h2>🏆 Supply Lines Held!</h2><p>All ${maxWaves} waves repelled!</p><button onclick="restartGame()">🔄 Play Again</button>`;
   ov.style.display='flex';
 }
 
-// ═══════════════════════════════════════════════════════════
-//  INPUT
-// ═══════════════════════════════════════════════════════════
-function getCell(evt) {
+function getCell(evt){
   const rect=canvas.getBoundingClientRect();
-  const mx=evt.clientX-rect.left, my=evt.clientY-rect.top;
-  const c=Math.floor((mx-offsetX())/CELL);
-  const r=Math.floor((my-offsetY())/CELL);
+  const mx=evt.clientX-rect.left,my=evt.clientY-rect.top;
+  const c=Math.floor((mx-offsetX())/CELL),r=Math.floor((my-offsetY())/CELL);
   if(r<0||r>=ROWS||c<0||c>=COLS) return null;
   return {r,c};
 }
 
-canvas.addEventListener('click', evt => {
+canvas.addEventListener('click',evt=>{
   if(!selectedTool||gameOver||gameWon) return;
-  const cell=getCell(evt);
-  if(!cell) return;
-  if(selectedTool==='delete') {
-    if(grid[cell.r][cell.c].type!=='grass'&&grid[cell.r][cell.c].type!=='base')
-      buildAt(cell.r,cell.c,'delete');
-    return;
-  }
+  const cell=getCell(evt); if(!cell) return;
   buildAt(cell.r,cell.c,selectedTool);
 });
 
-canvas.addEventListener('mousemove', evt => {
+canvas.addEventListener('mousemove',evt=>{
   hoverCell=getCell(evt);
-  // tooltip
   if(hoverCell){
     const cell=grid[hoverCell.r][hoverCell.c];
     if(cell.type!=='grass'){
@@ -966,30 +701,23 @@ canvas.addEventListener('mousemove', evt => {
       tip.style.display='block';
       tip.style.left=(evt.clientX+14)+'px';
       tip.style.top=(evt.clientY-20)+'px';
-      const ps = cell.powered?'<span style="color:#3fb950">✓ Supplied</span>':'<span style="color:#f85149">✗ No supply!</span>';
-      tip.innerHTML=`<b>${cell.type.replace(/_/g,' ').toUpperCase()}</b><br>
-        HP: ${Math.round(cell.hp)}/${cell.maxHp}<br>
-        ${TOWER_TYPES.includes(cell.type)?ps:''} 
-        ${cell.ammoStock>0?`🔴 Ammo: ${Math.round(cell.ammoStock)}`:''}
-        ${cell.powerStock>0?`⚡ Power: ${Math.round(cell.powerStock)}`:''}
-        ${cell.sabotaged>0?`<br><span style="color:#f85149">⚡ SABOTAGED (${Math.round(cell.sabotaged)}s)</span>`:''}`;
-    } else {
-      document.getElementById('tooltip').style.display='none';
-    }
-  } else {
-    document.getElementById('tooltip').style.display='none';
-  }
+      const ps=cell.powered?'<span style="color:#3fb950">✓ Supplied</span>':'<span style="color:#f85149">✗ No supply!</span>';
+      tip.innerHTML=`<b>${cell.type.replace(/_/g,' ').toUpperCase()}</b><br>HP: ${Math.round(cell.hp)}/${cell.maxHp}<br>
+        ${TOWER_TYPES.includes(cell.type)?ps:''}
+        ${cell.ammoStock>0?`<br>🔴 Ammo: ${Math.round(cell.ammoStock)}`:''}
+        ${cell.powerStock>0?`<br>⚡ Power: ${Math.round(cell.powerStock)}`:''}
+        ${cell.sabotaged>0?`<br><span style="color:#f85149">⚡ SABOTAGED</span>`:''}`;
+    } else { document.getElementById('tooltip').style.display='none'; }
+  } else { document.getElementById('tooltip').style.display='none'; }
 });
-
 canvas.addEventListener('mouseleave',()=>{ hoverCell=null; document.getElementById('tooltip').style.display='none'; });
 
-// Sidebar buttons
 document.querySelectorAll('.build-btn').forEach(btn=>{
   btn.addEventListener('click',()=>{
-    selectedTool = btn.dataset.type;
-    document.querySelectorAll('.build-btn,.#del-btn').forEach(b=>b.classList.remove('selected'));
-    btn.classList.add('selected');
+    selectedTool=btn.dataset.type;
+    document.querySelectorAll('.build-btn').forEach(b=>b.classList.remove('selected'));
     document.getElementById('del-btn').classList.remove('selected');
+    btn.classList.add('selected');
     showLog(`Selected: ${selectedTool.replace(/_/g,' ')} (💰${COSTS[selectedTool]||0})`);
   });
 });
@@ -1001,20 +729,17 @@ document.getElementById('del-btn').addEventListener('click',()=>{
   showLog('🗑 Click any structure to demolish (50% refund)');
 });
 
-document.getElementById('wave-btn').addEventListener('click', startWave);
+document.getElementById('wave-btn').addEventListener('click',startWave);
 
-// ═══════════════════════════════════════════════════════════
-//  START / RESTART
-// ═══════════════════════════════════════════════════════════
-function startGame() {
+function startGame(){
   document.getElementById('overlay').style.display='none';
   gameOver=false; gameWon=false;
   gold=250; lives=20; wave=0; waveActive=false;
   enemies=[]; bullets=[]; particles=[]; trucks=[];
   towerCooldowns={}; spawnQueue=[]; spawnTimer=0; resourceTick=0;
   ammoGlobal=0; powerGlobal=0;
+  resizeCanvas();
   initGrid();
-  // Starter infrastructure hint
   showLog('💡 Hint: Place an Ammo Factory + Road + Gun Tower to start!');
   document.getElementById('wave-btn').disabled=false;
   lastTime=performance.now();
@@ -1022,22 +747,20 @@ function startGame() {
   animFrame=requestAnimationFrame(gameLoop);
 }
 
-function restartGame() { startGame(); }
+function restartGame(){ startGame(); }
 
-// ═══════════════════════════════════════════════════════════
-//  SETUP
-// ═══════════════════════════════════════════════════════════
-window.addEventListener('load', ()=>{
-  canvas = document.getElementById('gameCanvas');
-  ctx = canvas.getContext('2d');
-  resizeCanvas();
-  // Draw static grid before start
-  initGrid();
-  draw();
-  updateUI();
+window.addEventListener('load',()=>{
+  canvas=document.getElementById('gameCanvas');
+  ctx=canvas.getContext('2d');
+  setTimeout(()=>{
+    resizeCanvas();
+    initGrid();
+    draw();
+    updateUI();
+  },100);
 });
 
-window.addEventListener('resize', ()=>{
+window.addEventListener('resize',()=>{
   resizeCanvas();
   if(!gameOver&&!gameWon) draw();
 });
